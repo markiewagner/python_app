@@ -43,6 +43,4 @@ workflows:
             - build
             - slack/on-hold
           type: approval
-      - my_deploy_job:
-          requires:
-            - pause_workflow
+      
