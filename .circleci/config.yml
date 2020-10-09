@@ -24,6 +24,23 @@ jobs:
       - store_artifacts:
           path: test-reports/
           destination: python_app
+      - slack/notify:
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "Reply yes to confirm merge 321",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always
 orbs:
   slack: circleci/slack@4.0.0
 workflows:
@@ -34,6 +51,8 @@ workflows:
       - slack/on-hold:
           requires:
             - build
+      - notify:
+          context: slack-secrets
       - pause_workflow:
           requires:
             - build
