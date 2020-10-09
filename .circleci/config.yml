@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  slack: circleci/slack@4.0.0
 jobs:
   build:
     docker:
@@ -41,8 +43,6 @@ jobs:
               ]
             }
           event: always
-orbs:
-  slack: circleci/slack@4.0.0
 workflows:
   version: 2.1
   on-hold-example:
