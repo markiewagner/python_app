@@ -51,6 +51,9 @@ workflows:
       - slack/on-hold:
           requires:
             - build
+      - slack/notify:
+          requires:
+            - build
       - pause_workflow:
           requires:
             - build
