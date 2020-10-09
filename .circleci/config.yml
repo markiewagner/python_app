@@ -32,7 +32,6 @@ workflows:
     jobs:
       - build
       - slack/on-hold:
-          context: slack-secrets
           requires:
             - build
       - pause_workflow:
