@@ -24,19 +24,23 @@ jobs:
       - store_artifacts:
           path: test-reports/
           destination: python_app
+      - deploy:
+          name: Deploying
+          command: echo "deployed"
 orbs:
   slack: circleci/slack@4.0.0
 workflows:
   version: 2.1
   on-hold-example:
     jobs:
+      - build
       - slack/on-hold:
           context: slack-secrets
           requires:
-            - my_test_job
+            - build
       - pause_workflow:
           requires:
-            - my_test_job
+            - build
             - slack/on-hold
           type: approval
       - my_deploy_job:
