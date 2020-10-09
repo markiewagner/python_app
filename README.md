@@ -1,3 +1,3 @@
 # python_app
 
-My first app!
+My first app.
