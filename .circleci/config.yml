@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  slack: circleci/slack@4.0.0
 jobs:
   build:
     docker:
@@ -16,6 +18,23 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
+      - slack/notify:
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "*This is a text notification*",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always
       - run:
           name: Running tests
           command: |
@@ -24,3 +43,8 @@ jobs:
       - store_artifacts:
           path: test-reports/
           destination: python_app
+workflows:
+  send-notification:
+    jobs:
+      - notify:
+          context: slack-secrets
