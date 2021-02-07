@@ -26,23 +26,6 @@ jobs:
       - store_artifacts:
           path: test-reports/
           destination: python_app
-      - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "Reply yes to confirm merge 321",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always
 workflows:
   version: 2.1
   on-hold-example:
